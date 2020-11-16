@@ -31,6 +31,20 @@ Page({
     // loading
     wx.showLoading({ title: '分析中...' })
 
+    // wx.request({
+    //   url: 'test.php', //仅为示例，并非真实的接口地址
+    //   data: {
+    //     x: '',
+    //     y: ''
+    //   },
+    //   header: {
+    //     'content-type': 'application/json' // 默认值
+    //   },
+    //   success (res) {
+    //     console.log(res.data)
+    //   }
+    // })
+    
     // 将图片上传至 AI 服务端点
     wx.uploadFile({
       url: 'https://ai.qq.com/cgi-bin/appdemo_detectface',
@@ -47,7 +61,6 @@ Page({
           // 检测失败
           wx.showToast({ icon: 'none', title: '找不到你的小脸蛋喽～' })
         }
-
         // end loading
         wx.hideLoading()
       }
@@ -85,19 +98,6 @@ Page({
     // 关闭 Tips 显示
     this.setData({ showTips: false })
   },
-
-  /**
-   * 按钮事件处理函数
-   */
-  // handleClick (e) {
-  //   if (e.type === 'tap') {
-  //     // 短按拍照为拍摄照片
-  //     this.getImage()
-  //   } else if (e.type === 'longpress') {
-  //     // 长按拍照为选择照片
-  //     this.getImage('album')
-  //   }
-  // },
   onLoad: function () {
     const isUsed = wx.getStorageSync('is_used')
     if (isUsed) return
