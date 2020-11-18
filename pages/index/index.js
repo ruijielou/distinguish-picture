@@ -59,7 +59,7 @@ Page({
           that.setData({ result: result.data.face[0] })
         } else {
           // 检测失败
-          wx.showToast({ icon: 'none', title: '找不到你的小脸蛋喽～' })
+          wx.showToast({ icon: 'none', title: '找不到你的小脸蛋' })
         }
         // end loading
         wx.hideLoading()
