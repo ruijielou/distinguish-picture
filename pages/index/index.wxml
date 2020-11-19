@@ -1,27 +1,26 @@
-<!--index.wxml-->
-<!-- <view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
+<!-- index.wxml -->
+<view class="container">
+  
+  <view class="image" wx:if="{{ image }}">
+    <view class="close-icon" wx:if="{{ result }}" bindtap="clearData"></view>
+    <image src="{{ image }}" mode="aspectFill"></image>
   </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
+  <view class="result score" wx:if="{{ result }}">
+    <!-- 填入识别结果 -->
+    
+    <text>识别结果：{{result}}</text>
   </view>
-</view> -->
-<image class="image" src="{{ image }}" mode="aspectFill"></image>
-
-<view class="result" wx:if="{{ result }}">
-  <!-- 填入识别结果 -->
+  <view wx:else class="score">
+    <text>现有积分</text>
+    {{allScore}}
+  </view>
+  <view class="controls">
+    <!-- <view class="tips" wx:if="{{ showTips }}">短按拍照，长按选择照片</view> -->
+    <button class="button" hover-class="button-hover" bindtap="getImage" bindlongpress="getImage">
+      <view class="icon"></view>
+      <!-- <text>拍拍看</text> -->
+    </button>
+  </view>
+  <image class="logs" src="{{ logImage }}" bindtap="bindViewTap" mode="aspectFill"></image>
+  
 </view>
-
-<view class="controls">
-  <!-- <view class="tips" wx:if="{{ showTips }}">短按拍照，长按选择照片</view> -->
-  <button class="button" hover-class="button-hover" bindtap="getImage" bindlongpress="getImage">
-    <view class="icon"></view>
-    <!-- <text>拍拍看</text> -->
-  </button>
-</view>
-<image class="logs" src="{{ logImage }}" bindtap="bindViewTap" mode="aspectFill"></image>
