@@ -1,8 +1,26 @@
 .log-list {
   display: flex;
   flex-direction: column;
-  padding: 40rpx;
+  padding: 10rpx;
 }
 .log-item {
-  margin: 10rpx;
+  margin: 10rpx 0;
+  padding: 10rpx;
+  position: relative;
+}
+.log-item + .log-item {
+  border-top: 1px solid #ccc;
+}
+.log-item-image{
+  max-height: 500rpx;
+  min-height: 260rpx;
+  width: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.log-integral {
+  position: absolute;
+  right: 10rpx;
+  top: 6rpx;
+  color: green;
 }

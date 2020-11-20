@@ -14,6 +14,7 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
+// console.log(formatTime(new Date('2020-11-20T15:06:45.444')));
 module.exports = {
   formatTime: formatTime
 }

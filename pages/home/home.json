@@ -1,3 +1,7 @@
 {
-    "usingComponents": {}
-  }
+  "navigationBarTitleText": "小票识别",
+  "usingComponents": {},
+  "navigationBarBackgroundColor": "#050505",
+  "navigationBarTextStyle": "white",
+  "navigationStyle": "custom"
+}

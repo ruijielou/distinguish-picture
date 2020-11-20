@@ -1,3 +1,4 @@
+/**index.wxss**/
 .container {
   width: 100%;
   height: 100%;
@@ -6,4 +7,124 @@
   background-position: center;
   background-size: 100px 100px;
   background-repeat: no-repeat;
+}
+.image {
+  height: 50%;
+  width: 90%;
+  padding: 50rpx;
+  position: relative;
+  left: 5%;
+  box-sizing: border-box;
+  background: rgba(130, 121, 121, 0.56);
+  transform: translateY(50%);
+}
+.image image {
+  width: 100%;
+  height: 100%;
+}
+.close-icon {
+  position: absolute;
+  right: -20rpx;
+  top: -20rpx;
+  width: 40rpx;
+  height: 40rpx;
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAADBUlEQVRYR+2XS8hOYRSFn2VASLnfQkJyK4QolxiQkltKLikTyS2SCQaYmCkU5VLIrdxCykgkA4UZMaAkkUSmRkv77/3+jvN/5/L9BlJ2fZPv7PO+6117r/XuI/5y6C/vz78DwHYfYBGwEJgCDAGGAl/S7xVwUdL9VlitxYDtzcA+YERa/FFmkwARYHql/94ClyUdrAOkFEA69RlgFfACuJAW/55f3PY4YCWwHvgqacEfAbA9FXgC9AA2SzpdZ8Fsju1g6qik20XvNmXA9ijgXXpptaTrrW4e+QnAeUnnWwXwGJgLdHrzHBMbgUeS3ueBdGDA9s6gLb+57TGSosFKw3ZvoLukz41E2waOSdpVCsD2QOAp8FLSsswC0dEHqhixPRqIek+S1H442yOBH5J+VAHYApwElkq6lwEwAbgGTCwCYTukeAeY0SzHdtvpJQW77fFbCWyHiQyXNKmJzApBJNpj83klAIOZ3pLmNwVguyvwEzhUZCK2O4Cw3Q24m1yy5abN1mk48KFK83kQyXiWV/VHkuXB/OGyAKYDz/L1b9byORCRUnly20H9wzzDWQDTgOfAcklBaWHYHpuacnJds7Idqoo+2SPpSGPxLIDo4k/ANkmhhKZhO0oVipgVJ69bAttbgRPAOklXOwBINQrDOClpWwH1/YGw5aCzjfa6TWj7OLADWCCp/TbNy/AcsCRJMRTRHrZ7AjeAxU1cMtyvSoZR3sGShpX5wFrgSl4JtrsAN4EVnTEi243+OiFpeyGAVIa4iHpIClW0he0/teJTqVdmSXpZBSCGj6D6N0Pq7GVkO0oatn5Y0v58bxXNA5cS4kJXLJNphrnZaai5LikU0yEKRzLb34C+ZdZcBiJTtu+S+hXlVs2Eodc1QIxjpyXFXFga6UreDYTu30gaX/ZC5VScTrIXiMvqMnBL0q38orbnpKF0AzAAOCtpUxXgSgBJBTOBABGXTlWEjR+X9KAqMZ7XApBpqkHp2o07oPE90PgweR3dLuljnY0bOS0BaGXhurn/AfwCjJxmMFC5doUAAAAASUVORK5CYII=");
+  background-size: 100% 100%;
+}
+
+.result::before {
+  position: absolute;
+  bottom: -74rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  content: "";
+  width: 0;
+  height: 0;
+  border: 40rpx solid transparent;
+  border-top-color: rgb(255, 255, 255);
+}
+
+.controls {
+  position: fixed;
+  bottom: 0;
+  margin-bottom: 100rpx;
+  width: 100%;
+}
+
+.tips {
+  position: relative;
+  width: 450rpx;
+  margin: 50rpx auto;
+  padding: 20rpx;
+  border-radius: 20rpx;
+  /* background: rgba(255, 255, 255, 0.8); */
+  text-align: center;
+  font-size: 24rpx;
+  animation: tips 0.8s infinite;
+}
+
+.tips::after {
+  position: absolute;
+  bottom: -40rpx;
+  left: 225rpx;
+  content: "";
+  width: 0;
+  height: 0;
+  border: 20rpx solid transparent;
+  border-top-color: rgba(255, 255, 255, 0.8);
+}
+
+@keyframes tips {
+  from {
+    transform: translateY(-30rpx);
+  }
+
+  35% {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-30rpx);
+  }
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 260rpx;
+  padding: 15rpx 50rpx;
+  border-radius: 50rpx;
+  background:white;
+  color: #141c1a;
+}
+
+.button-hover {
+  background: rgba(204, 204, 204, 0.9);
+}
+
+.button .icon {
+  width: 32rpx;
+  height: 32rpx;
+  margin: 5rpx;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>');
+}
+
+.logs {
+  position: fixed;
+  top: 90rpx;
+  left: 10px;
+  z-index: 9;
+  width: 62rpx;
+  height: 62rpx;
+}
+
+.score {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #fff;
+  padding: 20rpx;
+  border-radius: 5rpx;
 }

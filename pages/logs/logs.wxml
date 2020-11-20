@@ -1,6 +1,18 @@
-<!--logs.wxml-->
+<!-- logs.wxml -->
+
 <view class="container log-list">
-  <block wx:for="{{logs}}" wx:for-item="log">
-    <text class="log-item">{{index + 1}}. {{log}}</text>
-  </block>
+  <scroll-view scroll-y="true" style="height: 100vh;" bindscrolltoupper="upper" bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+    <view class="log-item" wx:if="{{logs.length == 0}}">
+      <text>暂无数据</text>
+    </view>
+    <view class="log-item" wx:for="{{logs}}" wx:for-item="log" wx:key="log">
+      <text>{{index + 1}}. {{log.createdDate}}</text>
+      <view mode="aspectFill" data-id="{{log.id}}" bindtap="tabClick" class="log-item-image" style="background-image: url({{'data:image/png;base64,' + log.imageBase64}})"></view>
+      <text class="log-integral">+{{log.integral}}</text>
+    </view>
+    <view class="log-item" wx:if="{{logs.length !== 0}}">
+      <text wx:if="{{logs.length == total && total != 0}}">共{{logs.length}}条数据</text>
+      <text wx:else>正在加载......</text>
+    </view>
+  </scroll-view>
 </view>
