@@ -10,10 +10,12 @@ Page({
     allScore: 0,
     loading: false,
   },
-  onLaunch: function () {},
-  onShow: function () {
+  onLoad: function () {
     this.getConfig();
   },
+  // onShow: function () {
+  //   this.getConfig();
+  // },
   async getConfig() {
     console.log("getConfig");
     await wx.getSetting({

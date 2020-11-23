@@ -3,7 +3,39 @@ App({
 
   onLaunch: function () {
     // this.getConfig();
-    
+    const that = this;
+    wx.login({
+      success: res => {
+        if(res.code) {
+          that.getOpenId(res.code)
+        }
+      }
+    })
+  },
+  getOpenId: function (code) {
+    if (!code) return;
+    const that = this;
+    wx.request({
+      url:
+        "http://192.168.0.130:8080/auth/code2Session?code=" + code, //仅为示例，并非真实的接口地址
+
+      header: {
+        "content-type": "application/json", // 默认值
+      },
+      success(res) {
+        if (res.data.code == 200 && res.data.data) {
+          // wx.setStorageSync("openId", res.data.data);
+          that.globalData.openId = res.data.data
+          // that.getTotal(res.data.data);
+        } else {
+          wx.showToast({
+            title: "获取用户id失败",
+            icon: "none",
+            duration: 2000,
+          });
+        }
+      },
+    });
   },
   async getConfig() {
     await wx.getSetting({
@@ -39,7 +71,7 @@ App({
     userInfo: null,
     appId: "",
     code: "",
-    openId: wx.getStorageSync("openId"),
+    openId: "",
     canIUse: wx.canIUse("button.open-type.getUserInfo"),
   },
 });

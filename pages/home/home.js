@@ -26,30 +26,30 @@ Page({
       image: "",
     });
   },
-  getOpenId: function (code) {
-    if (!code) return;
-    const that = this;
-    wx.request({
-      url:
-        "http://192.168.0.130:8080/auth/code2Session?code=" + code, //仅为示例，并非真实的接口地址
+  // getOpenId: function (code) {
+  //   if (!code) return;
+  //   const that = this;
+  //   wx.request({
+  //     url:
+  //       "http://192.168.0.130:8080/auth/code2Session?code=" + code, //仅为示例，并非真实的接口地址
 
-      header: {
-        "content-type": "application/json", // 默认值
-      },
-      success(res) {
-        if (res.data.code == 200 && res.data.data) {
-          wx.setStorageSync("openId", res.data.data);
-          that.getTotal(res.data.data);
-        } else {
-          wx.showToast({
-            title: "获取用户id失败，检查服务器连接状态",
-            icon: "warning",
-            duration: 2000,
-          });
-        }
-      },
-    });
-  },
+  //     header: {
+  //       "content-type": "application/json", // 默认值
+  //     },
+  //     success(res) {
+  //       if (res.data.code == 200 && res.data.data) {
+  //         wx.setStorageSync("openId", res.data.data);
+  //         that.getTotal(res.data.data);
+  //       } else {
+  //         wx.showToast({
+  //           title: "获取用户id失败，检查服务器连接状态",
+  //           icon: "warning",
+  //           duration: 2000,
+  //         });
+  //       }
+  //     },
+  //   });
+  // },
   /**
    * 分析照片
    */
@@ -64,9 +64,7 @@ Page({
     // 将图片上传至 AI 服务端点
     try {
       wx.uploadFile({
-        url:
-          "http://192.168.0.130:8080/ticket/createItem?wxOpenId=" +
-          app.globalData.openId,
+        url: `http://192.168.0.130:8080/ticket/createItem?wxOpenId=${app.globalData.openId}`,
         filePath: src,
         header: {
           "Content-Type": "multipart/form-data",
@@ -80,28 +78,31 @@ Page({
           };
 
           if (res.data) {
-            console.log("解析图片成功");
+            console.log("解析图片成功", res.data);
             // 成功获取分析结果
             const result = JSON.parse(res.data);
             if (result.code == 200) {
               if (result.data) {
                 that.setData({ result: result.data });
+                toast.title = result.msg || "识别成功";
               } else {
                 toast.title = result.msg || "无效图片";
               }
             } else {
               // 检测失败
-              // wx.showToast({ icon: "info", title: "您上传的是无效图片", duration: 2000 });
-              toast.title = result.msg || "识别失败";
+              console.log(JSON.stringify(result));
+              toast.title = JSON.stringify(result);
             }
           } else {
             // 检测失败
-            // wx.showToast({ icon: "warn", title: "解析图片失败", duration: 2000 });
             toast.title = "解析图片失败";
           }
           // end loading
           wx.hideLoading();
-          wx.showToast(toast);
+
+          if (toast.title) {
+            wx.showToast(toast);
+          }
           that.setData({ loading: false });
         },
         fail(err) {
@@ -147,22 +148,25 @@ Page({
     });
   },
   onLoad: function () {
-    const openId = wx.getStorageSync("openId");
+    const {openId, userInfo} = app.globalData;
     const that = this;
     if (openId) {
-      app.globalData.openId = openId;
-      that.getTotal();
+      that.getTotal(openId);
     } else {
-      that.login();
+      wx.showToast({
+        title: "没有授权获取到用户id",
+        icon: "none",
+        duration: 2000,
+      });
     }
-    that.getTotal();
+  
     const isUsed = wx.getStorageSync("is_used");
     if (isUsed) return;
     // 并记住用使用过了
     wx.setStorageSync("is_used", true);
-    if (app.globalData.userInfo) {
+    if (userInfo) {
       that.setData({
-        userInfo: app.globalData.userInfo,
+        userInfo: userInfo,
         hasUserInfo: true,
       });
     } else if (app.globalData.canIUse) {
@@ -191,8 +195,7 @@ Page({
     const that = this;
     // /ticket/getSumIntegral
     wx.request({
-      url:
-        "http://192.168.0.130:8080/ticket/getSumIntegral?wxOpenId=" + (openId || app.globalData.openId),
+      url: `http://192.168.0.130:8080/ticket/getSumIntegral?wxOpenId=${openId || app.globalData.openId}`,
       method: "POST",
       header: {
         "content-type": "application/json", // 默认值
