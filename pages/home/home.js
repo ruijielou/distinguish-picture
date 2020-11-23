@@ -66,9 +66,6 @@ Page({
       wx.uploadFile({
         url: `http://192.168.0.130:8080/ticket/createItem?wxOpenId=${app.globalData.openId}`,
         filePath: src,
-        header: {
-          "Content-Type": "multipart/form-data",
-        },
         name: "multipartFile",
         success(res) {
           let toast = {
